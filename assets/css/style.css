@@ -1881,3 +1881,62 @@ textarea.form-input::-webkit-resizer { display: none; }
   .timeline-text { max-width: 700px; }
 
 }
+
+/* Technologies section styles */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 30px;
+  padding: 20px;
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: var(--border-gradient-onyx);
+  border-radius: 14px;
+  box-shadow: var(--shadow-2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tech-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-4);
+}
+
+.tech-item img {
+  margin-bottom: 15px;
+  filter: grayscale(0.2);
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.tech-item:hover img {
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
+.tech-name {
+  color: var(--light-gray);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  text-align: center;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 580px) {
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .tech-item {
+    padding: 15px;
+  }
+
+  .tech-item img {
+    height: 60px;
+  }
+}
