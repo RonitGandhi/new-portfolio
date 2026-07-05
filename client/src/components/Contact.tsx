@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { Github, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
@@ -57,13 +57,16 @@ export default function Contact() {
   return (
     <section id="contact" className="py-20 md:py-32">
       <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16 animate-fade-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, var(--font-sans)" }}>
+        <div className="mb-16">
+          <div className="font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase mb-4">
+            // contact
+          </div>
+          <h2
+            className="text-4xl md:text-5xl font-bold"
+            style={{ fontFamily: "Fraunces, var(--font-serif)" }}
+          >
             Get In Touch
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Let's discuss how data science can drive your business forward
-          </p>
         </div>
 
         <div className="grid md:grid-cols-5 gap-8">
@@ -153,11 +156,6 @@ export default function Contact() {
                 </a>
 
                 <div className="flex items-center gap-3 p-3">
-                  <Phone className="w-5 h-5 text-muted-foreground" />
-                  <span className="text-sm">+1 (732) 470-6368</span>
-                </div>
-
-                <div className="flex items-center gap-3 p-3">
                   <MapPin className="w-5 h-5 text-muted-foreground" />
                   <span className="text-sm">New Brunswick, New Jersey, USA</span>
                 </div>
@@ -165,9 +163,9 @@ export default function Contact() {
             </Card>
 
             <Card className="p-6 bg-primary/5 border-primary/20">
-              <h3 className="font-semibold text-lg mb-2">Open to Opportunities</h3>
+              <h3 className="font-semibold text-lg mb-2">Open to Conversations</h3>
               <p className="text-sm text-muted-foreground">
-                I'm currently available for freelance projects and consulting work in data science and machine learning.
+                Always happy to talk about interesting backend, infra, or AI engineering problems — full-time, consulting, or just a good conversation.
               </p>
             </Card>
           </div>

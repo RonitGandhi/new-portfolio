@@ -1,99 +1,113 @@
-import { GraduationCap, Zap, BookOpen } from "lucide-react";
+import { GraduationCap, BookOpen } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 export default function About() {
   return (
     <section id="about" className="py-20 md:py-32">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16 animate-fade-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, var(--font-sans)" }}>
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="mb-16">
+          <div className="font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase mb-4">
+            // profile
+          </div>
+          <h2
+            className="text-4xl md:text-5xl font-bold"
+            style={{ fontFamily: "Fraunces, var(--font-serif)" }}
+          >
             About Me
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A journey from electronics engineering to data science, powered by curiosity
-          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <p className="text-lg leading-relaxed">
-              I'm a <span className="font-semibold text-foreground">Data Scientist and Machine Learning Enthusiast</span> based in New Jersey, specializing in building intelligent systems and data-driven solutions. I thrive on solving challenging problems and transforming raw data into actionable insights.
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="space-y-5">
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              I'm a{" "}
+              <span className="text-foreground font-medium">AI Platform Engineer</span> at
+              Exo Imaging, building the backend infrastructure and AI systems behind
+              hospital-facing medical imaging products. My work sits at the intersection
+              of scalable services and applied ML — REST microservices, cloud
+              architecture, and LLM integrations that run in production.
             </p>
-            <p className="text-lg leading-relaxed">
-              My goal is to design solutions that are not only robust and efficient but also user-focused and intuitive. Whether it's developing predictive models, optimizing workflows, or creating interactive visualizations, I bring a unique blend of technical expertise and creativity to every project.
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              Before Exo, I spent a year as an ML Engineer in research at Rutgers School
+              of Engineering, applying predictive models to pharmaceutical and bioprocess
+              problems — including a published paper in{" "}
+              <span className="text-foreground">Control Engineering Practice</span>. I
+              started building in industry with a data science internship at Google via
+              DKSH Smollan, where I led a small team shipping BI tooling on Google Cloud.
             </p>
-            <div className="flex items-center gap-3 pt-4">
-              <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
-                <Zap className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium">3+ Years Experience</span>
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              My foundation is a B.Tech in Electronics Engineering (University of Mumbai)
+              and an M.S. in Statistics — Data Science from Rutgers. The engineering
+              background shapes how I think about systems; the statistics background
+              shapes how I think about uncertainty.
+            </p>
+
+            <div className="flex flex-wrap gap-3 pt-3">
+              <div className="flex items-center gap-2 px-4 py-2 bg-muted rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal-500 flex-shrink-0"></span>
+                <span className="font-mono text-xs text-muted-foreground">New Jersey, USA</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
-                <Zap className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium">8+ Projects</span>
+              <div className="flex items-center gap-2 px-4 py-2 bg-muted rounded-full">
+                <span className="font-mono text-xs text-muted-foreground">3+ years exp.</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-muted rounded-full">
+                <span className="font-mono text-xs text-muted-foreground">3 publications</span>
               </div>
             </div>
           </div>
 
-          <div className="space-y-6">
-            <Card className="p-6 hover-elevate transition-all duration-300">
+          <div className="space-y-4">
+            <Card className="p-5">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <GraduationCap className="w-6 h-6 text-primary" />
+                <div className="p-2 bg-primary/10 rounded-md mt-0.5 flex-shrink-0">
+                  <GraduationCap className="w-5 h-5 text-primary" />
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <h3 className="font-semibold text-lg">Masters of Science in Statistics</h3>
-                      <p className="text-sm text-muted-foreground">Rutgers University - Data Science</p>
-                      <p className="text-sm text-muted-foreground">2023 — 2025 (GPA: 3.8/4.0)</p>
-                    </div>
-                    <div className="w-1 h-16 bg-primary rounded-full"></div>
-                  </div>
+                <div>
+                  <h3 className="font-semibold mb-1">M.S. Statistics — Data Science</h3>
+                  <p className="font-mono text-xs text-muted-foreground">
+                    Rutgers University · 2023 — 2025 · GPA 3.8
+                  </p>
                   <p className="text-sm text-muted-foreground mt-2">
-                    Specialized in machine learning, statistical inference, and predictive modeling
+                    ML, statistical inference, causal inference, predictive modeling
                   </p>
                 </div>
               </div>
             </Card>
 
-            <Card className="p-6 hover-elevate transition-all duration-300">
+            <Card className="p-5">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <GraduationCap className="w-6 h-6 text-primary" />
+                <div className="p-2 bg-primary/10 rounded-md mt-0.5 flex-shrink-0">
+                  <GraduationCap className="w-5 h-5 text-primary" />
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <h3 className="font-semibold text-lg">Bachelors of Technology</h3>
-                      <p className="text-sm text-muted-foreground">University of Mumbai - Electronics Engineering</p>
-                      <p className="text-sm text-muted-foreground">2019 — 2023 (CGPA: 8.26/10.0)</p>
-                    </div>
-                    <div className="w-1 h-16 bg-chart-2 rounded-full"></div>
-                  </div>
+                <div>
+                  <h3 className="font-semibold mb-1">B.Tech — Electronics Engineering</h3>
+                  <p className="font-mono text-xs text-muted-foreground">
+                    University of Mumbai · 2019 — 2023 · CGPA 8.26
+                  </p>
                   <p className="text-sm text-muted-foreground mt-2">
-                    Foundation in systems thinking, problem-solving, and technical implementation
+                    Systems thinking, embedded systems, signal processing
                   </p>
                 </div>
               </div>
             </Card>
 
-            <Card className="p-6 hover-elevate transition-all duration-300 bg-primary/5 border-primary/20">
+            <Card className="p-5 bg-primary/5 border-primary/20">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <BookOpen className="w-6 h-6 text-primary" />
+                <div className="p-2 bg-primary/10 rounded-md mt-0.5 flex-shrink-0">
+                  <BookOpen className="w-5 h-5 text-primary" />
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-2">Published Research</h3>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Control Engineering Practice (March 2025)
+                <div>
+                  <h3 className="font-semibold mb-1">Published Research</h3>
+                  <p className="font-mono text-xs text-muted-foreground mb-2">
+                    Control Engineering Practice · March 2025
                   </p>
-                  <a 
-                    href="https://doi.org/10.1016/j.conengprac.2024.106198" 
-                    target="_blank" 
+                  <a
+                    href="https://doi.org/10.1016/j.conengprac.2024.106198"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-primary hover:underline"
                   >
-                    Machine Learning Model-Based Design and Model Predictive Control of a Bioreactor
+                    ML Model-Based Design and MPC of a Bioreactor →
                   </a>
                 </div>
               </div>
@@ -104,4 +118,3 @@ export default function About() {
     </section>
   );
 }
-
