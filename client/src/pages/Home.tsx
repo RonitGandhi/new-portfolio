@@ -8,11 +8,11 @@ import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
-export default function Home() {
+export default function Home({ onEnterWorld }: { onEnterWorld?: () => void }) {
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      <main>
+    <div className="min-h-screen overflow-x-clip">
+      <Navigation onEnterWorld={onEnterWorld} />
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
         <About />
         <Experience />

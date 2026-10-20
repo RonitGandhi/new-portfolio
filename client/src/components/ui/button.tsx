@@ -5,25 +5,24 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0" +
-  " hover-elevate active-elevate-2",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium tracking-[-0.01em] transition-[background-color,color,box-shadow,transform] duration-300 ease-apple active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground border border-primary-border",
-        destructive:
-          "bg-destructive text-destructive-foreground border border-destructive-border",
+          "bg-primary text-primary-foreground shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] hover:bg-primary-hi",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          " border [border-color:var(--button-outline)]  shadow-xs active:shadow-none ",
-        secondary: "border bg-secondary text-secondary-foreground border border-secondary-border ",
-        ghost: "border border-transparent",
+          "text-foreground shadow-[inset_0_0_0_1px_var(--button-outline)] hover:bg-foreground/[0.06] hover:shadow-[inset_0_0_0_1px_hsl(0_0%_100%/0.28)]",
+        secondary: "bg-elevated text-foreground hover:bg-accent",
+        ghost: "text-foreground hover:bg-foreground/[0.06]",
+        link: "text-primary-hi underline-offset-4 hover:underline",
       },
       size: {
-        default: "min-h-9 px-4 py-2",
-        sm: "min-h-8 rounded-md px-3 text-xs",
-        lg: "min-h-10 rounded-md px-8",
-        icon: "h-9 w-9",
+        default: "min-h-11 px-5 text-[0.9375rem]",
+        sm: "min-h-10 px-4 text-sm",
+        lg: "min-h-12 px-7 text-base",
+        icon: "h-11 w-11",
       },
     },
     defaultVariants: {

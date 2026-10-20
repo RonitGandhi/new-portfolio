@@ -6,9 +6,9 @@ export default {
   theme: {
     extend: {
       borderRadius: {
-        lg: ".5625rem",
-        md: ".375rem",
-        sm: ".1875rem",
+        lg: ".75rem",
+        md: ".5rem",
+        sm: ".375rem",
       },
       colors: {
         background: "hsl(var(--background) / <alpha-value>)",
@@ -51,6 +51,10 @@ export default {
           border: "var(--destructive-border)",
         },
         ring: "hsl(var(--ring) / <alpha-value>)",
+        elevated: "hsl(var(--elevated) / <alpha-value>)",
+        subtle: "hsl(var(--subtle) / <alpha-value>)",
+        live: "hsl(var(--live) / <alpha-value>)",
+        "primary-hi": "hsl(var(--primary-hi) / <alpha-value>)",
         chart: {
           "1": "hsl(var(--chart-1) / <alpha-value>)",
           "2": "hsl(var(--chart-2) / <alpha-value>)",
@@ -63,7 +67,10 @@ export default {
         sans: ["var(--font-sans)"],
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
-        display: ["'Fraunces'", "Georgia", "serif"],
+        display: ["var(--font-display)"],
+      },
+      transitionTimingFunction: {
+        apple: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
       keyframes: {
         "accordion-down": {

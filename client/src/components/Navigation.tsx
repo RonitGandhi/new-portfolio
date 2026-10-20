@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Box } from "lucide-react";
 
 const navItems = [
   { name: "About", href: "#about" },
@@ -11,88 +10,173 @@ const navItems = [
   { name: "Contact", href: "#contact" },
 ];
 
-export default function Navigation() {
+export default function Navigation({ onEnterWorld }: { onEnterWorld?: () => void }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [active, setActive] = useState<string>("");
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
-  };
+  // Highlight the section currently in the middle of the screen
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.querySelector<HTMLElement>(item.href))
+      .filter((el): el is HTMLElement => !!el);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(`#${e.target.id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, []);
+
+  // Mobile menu: lock page scroll, close on Escape, return focus to the toggle
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [isMobileMenuOpen]);
+
+  const solid = isScrolled || isMobileMenuOpen;
 
   return (
     <>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
+
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-background/85 backdrop-blur-lg border-b border-border"
+        className={`glass fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500 ${
+          solid
+            ? "bg-background/70 shadow-[0_1px_0_0_hsl(0_0%_100%/0.08)] backdrop-blur-2xl backdrop-saturate-150"
             : "bg-transparent"
         }`}
+        style={{ paddingTop: "env(safe-area-inset-top)" }}
       >
-        <nav className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-lg font-bold px-2 py-1 transition-opacity hover:opacity-70"
-              style={{ fontFamily: "Fraunces, var(--font-serif)" }}
-            >
-              RG<span className="text-primary">.</span>
-            </button>
+        <nav aria-label="Primary" className="container-wide flex h-14 items-center justify-between">
+          <a
+            href="#top"
+            className="font-display -ml-2 inline-flex min-h-11 items-center rounded-full px-2 text-lg font-semibold transition-opacity hover:opacity-70"
+            aria-label="Ronit Gandhi, back to top"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            RG<span className="text-primary">.</span>
+          </a>
 
-            <div className="hidden md:flex items-center gap-1">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover-elevate rounded-lg transition-all"
-                >
-                  {item.name}
+          <ul className="hidden items-center gap-1 md:flex">
+            {navItems.map((item) => {
+              const isActive = active === item.href;
+              return (
+                <li key={item.name}>
+                  <a
+                    href={item.href}
+                    aria-current={isActive ? "location" : undefined}
+                    className={`relative inline-flex min-h-11 items-center rounded-full px-3.5 text-sm transition-colors duration-300 ${
+                      isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {item.name}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute inset-x-3.5 bottom-2 h-px origin-left bg-primary transition-transform duration-500 ease-apple ${
+                        isActive ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
+                  </a>
+                </li>
+              );
+            })}
+            {onEnterWorld && (
+              <li className="ml-3">
+                <button type="button" onClick={onEnterWorld} className="hud-btn">
+                  <Box className="h-4 w-4" aria-hidden="true" />
+                  Enter 3D City
                 </button>
-              ))}
-            </div>
+              </li>
+            )}
+          </ul>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </Button>
-          </div>
+          <button
+            ref={toggleRef}
+            type="button"
+            className="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-full md:hidden"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setIsMobileMenuOpen((v) => !v)}
+          >
+            {/* Two lines that morph into an X, like Apple's mobile nav */}
+            <span className="relative block h-3 w-[18px]" aria-hidden="true">
+              <span
+                className={`absolute left-0 h-[1.5px] w-full rounded-full bg-foreground transition-all duration-500 ease-apple ${
+                  isMobileMenuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : "top-0"
+                }`}
+              />
+              <span
+                className={`absolute left-0 h-[1.5px] w-full rounded-full bg-foreground transition-all duration-500 ease-apple ${
+                  isMobileMenuOpen ? "top-1/2 -translate-y-1/2 -rotate-45" : "top-[calc(100%-1.5px)]"
+                }`}
+              />
+            </span>
+          </button>
         </nav>
       </header>
 
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden">
-          <div
-            className="absolute inset-0 bg-background/80 backdrop-blur-lg"
-            onClick={() => setIsMobileMenuOpen(false)}
-          ></div>
-          <div className="absolute top-20 left-0 right-0 bg-card border-b border-border shadow-lg animate-slide-in">
-            <div className="flex flex-col p-6 gap-1">
-              {navItems.map((item) => (
-                <button
+        <div
+          id="mobile-menu"
+          className="glass fixed inset-0 z-40 bg-background/90 backdrop-blur-2xl md:hidden"
+          style={{ paddingTop: "calc(env(safe-area-inset-top) + 4.5rem)" }}
+        >
+          <nav aria-label="Mobile" className="container-wide">
+            <ul className="flex flex-col">
+              {navItems.map((item, i) => (
+                <li
                   key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="px-4 py-3 text-left font-medium text-muted-foreground hover:text-foreground hover-elevate rounded-lg transition-all"
+                  className="menu-item-in"
+                  style={{ ["--delay" as string]: `${60 + i * 45}ms` }}
                 >
-                  {item.name}
-                </button>
+                  <a
+                    href={item.href}
+                    aria-current={active === item.href ? "location" : undefined}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="font-display flex min-h-14 items-center text-[1.75rem] font-semibold text-foreground/90 transition-colors hover:text-primary-hi"
+                  >
+                    {item.name}
+                  </a>
+                </li>
               ))}
-            </div>
-          </div>
+              {onEnterWorld && (
+                <li className="menu-item-in mt-6" style={{ ["--delay" as string]: "360ms" }}>
+                  <button type="button" onClick={onEnterWorld} className="hud-btn hud-btn-primary min-h-12">
+                    <Box className="h-4 w-4" aria-hidden="true" />
+                    Enter 3D City
+                  </button>
+                </li>
+              )}
+            </ul>
+          </nav>
         </div>
       )}
     </>
